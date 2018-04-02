@@ -1,0 +1,29 @@
+<article class="card mb-3">
+  <section class="row">
+
+    <div class="col-md-2" *ngIf="itemThumb">
+      <img [src]="itemThumb" alt="image">
+    </div>
+
+    <div class="col-md-10 px-3">
+      <div class="card-block px-3">
+
+        <h4 class="card-title">
+          <a [href]="itemUrl" target="_blank">{{itemTitle}}</a>
+          <button type="button" class="btn btn-outline-primary btn-sm" [hidden]="checkSelected(itemId, type)" (click)="toggleSelected(selectedItems, itemId, type)">
+            Selecionar
+          </button>
+          <button type="button" class="btn btn-success btn-sm" [hidden]="!checkSelected(itemId, type)" (click)="toggleSelected(selectedItems, itemId, type)">
+            Selecionado
+          </button>
+        </h4>
+
+        <p class="card-text">
+          {{itemDescription | slice: 0:350 }}<span *ngIf="itemDescription && itemDescription.length > 350">...</span>
+        </p>
+        
+      </div>
+    </div>
+
+  </section>
+</article>

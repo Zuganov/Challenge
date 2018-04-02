@@ -1,0 +1,43 @@
+<main class="container pt-3">
+
+  <article class="row">
+    <section class="pb-4 jumbotron w-100">
+      <h1>
+        Star Wars
+      </h1>
+
+      <h4>Escolha seus filmes favoritos!</h4>
+    </section>
+  </article>
+
+
+
+  <article class="row">
+
+    <div class="col-12 col-md-3">
+
+      <h4>Filtros</h4>
+
+      <form [formGroup]="filtersForm" (submit)="filter()">
+
+        <app-filters [parentForm]="filtersForm" [type]="'starwars'"></app-filters>
+
+        <button class="btn btn-primary" type="submit">Filtrar</button>
+      </form>
+
+    </div>
+
+    <div class="col-12 col-md-9" *ngIf="films && films.length > 0">
+      <section *ngFor="let film of films">
+        <app-list-item [itemTitle]="film.title" [selectedItems]="selectedFilms"
+          [itemDescription]="film.opening_crawl" [itemId]="film.episode_id"
+          [itemUrl]="getStarWarsDetailLink(film.title)" [checkSelected]="checkSelectedFilm" 
+          [toggleSelected]="toggleSelectedFilm" [type]="'starWars'"></app-list-item>
+      </section>
+    </div>
+
+    
+
+  </article>
+
+</main>

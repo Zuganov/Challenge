@@ -1,0 +1,36 @@
+<main class="text-center pb-5 pt-5">
+  <article class="pt-4">
+    <section class="pb-4 container">
+      <h1>
+        Bem vindo!
+      </h1>
+
+      <h4>Escolha um dos temas a seguir:</h4>
+    </section>
+
+    <div class="container">
+      <div class="row">
+
+        <section class="col-12 col-md-6 mb-3" [routerLink]="['/marvel']">
+          <div class="card">
+            <img class="card-img-top" src="../../../assets/images/marvel.png" alt="Marvel">
+            <div class="overlay">
+              <span class="text">Marvel</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="col-12 col-md-6 mb-3" [routerLink]="['/starwars']">
+          <div class="card">
+            <img class="card-img-top" src="../../../assets/images/starwars.png" alt="Star Wars">
+            <div class="overlay">
+              <span class="text">Star Wars</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+  </article>
+</main>
