@@ -2,7 +2,7 @@
   <section class="row">
 
     <div class="col-md-2" *ngIf="itemThumb">
-      <img [src]="itemThumb" alt="image">
+      <img [src]="itemThumb" alt="image" class="mx-auto d-block">
     </div>
 
     <div class="col-md-10 px-3">
@@ -18,7 +18,7 @@
           </button>
         </h4>
 
-        <p class="card-text">
+        <p class="card-text text-justify">
           {{itemDescription | slice: 0:350 }}<span *ngIf="itemDescription && itemDescription.length > 350">...</span>
         </p>
         

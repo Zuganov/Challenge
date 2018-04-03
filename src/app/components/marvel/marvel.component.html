@@ -1,18 +1,20 @@
-<main class="container pt-3">
+<main class="container pt-5">
 
   <article class="row">
-    <section class="pb-4 jumbotron w-100">
-      <h1>
-        Marvel
-      </h1>
+    <div class="container">
+      <section class="col-12 pb-4 jumbotron w-100">
+        <h1>
+          Marvel
+        </h1>
 
-      <h4>Escolha seus quadrinhos favoritos!</h4>
-    </section>
+        <h4>Escolha seus quadrinhos favoritos!</h4>
+      </section>
+    </div>
   </article>
 
   <article class="row">
 
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-3 pb-3">
 
       <h4>Filtros</h4>
 
@@ -24,18 +26,28 @@
 
       </form>
     </div>
-    
-    <div class="col-12 col-md-9">
-      <div *ngIf="comics && comics.length > 0">
-          <pagination-controls maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
 
-          <section *ngFor="let comic of comics | paginate: { itemsPerPage: 20, currentPage: currentPage, totalItems: total }">
-            <app-list-item [itemThumb]="getComicThumbImg(comic.thumbnail)" [itemTitle]="comic.title" [selectedItems]="selectedComics"
-              [itemDescription]="comic.description" [itemId]="comic.id" [itemUrl]="getComicDetailLink(comic.urls)" [checkSelected]="checkSelectedComic"
-              [toggleSelected]="toggleSelectedComic" [type]="'marvel'"></app-list-item>
-          </section>
-    
-          <pagination-controls maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
+    <div class="col-12 col-md-9">
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" aria-current="page">
+            <a [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Marvel</li>
+        </ol>
+      </nav>
+
+      <div *ngIf="comics && comics.length > 0">
+        <pagination-controls class="my-pagination" maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
+
+        <section *ngFor="let comic of comics | paginate: { itemsPerPage: 20, currentPage: currentPage, totalItems: total }">
+          <app-list-item [itemThumb]="getComicThumbImg(comic.thumbnail)" [itemTitle]="comic.title" [selectedItems]="selectedComics"
+            [itemDescription]="comic.description" [itemId]="comic.id" [itemUrl]="getComicDetailLink(comic.urls)" [checkSelected]="checkSelectedComic"
+            [toggleSelected]="toggleSelectedComic" [type]="'marvel'"></app-list-item>
+        </section>
+
+        <pagination-controls class="my-pagination" maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
       </div>
 
       <div [hidden]="!noResultsMessage" class="pt-4">
@@ -45,7 +57,14 @@
       </div>
 
     </div>
-  
+
   </article>
 
 </main>
+
+<!-- /deep/ não esta funcionando no sass e a documentação do componente recomenda esse uso -->
+<style>
+  .my-pagination /deep/ .ngx-pagination {
+    padding: 0;
+  }
+</style>

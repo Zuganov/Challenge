@@ -1,17 +1,30 @@
-<main class="container pt-3">
+<main class="container pt-5">
 
   <article class="row">
-    <section class="pb-4 jumbotron w-100">
-      <h1>
-        Suas Escolhas
-      </h1>
-
-      <h4>A seguir estarão listadas as suas preferências!</h4>
-    </section>
+    <div class="container">
+      <section class="pb-4 jumbotron w-100">
+        <h1>
+          Suas Escolhas
+        </h1>
+  
+        <h4>A seguir estarão listadas as suas preferências!</h4>
+      </section>
+    </div>
+    
   </article>
 
   <article class="row">
-    <div class="col-12 col-md-9" *ngIf="selectedItems && selectedItems.length > 0">
+    <div class="col-12 col-md-12" *ngIf="selectedItems && selectedItems.length > 0">
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" aria-current="page">
+            <a [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Itens Selecionados</li>
+        </ol>
+      </nav>
+
       <section *ngFor="let item of selectedItems">
         <app-list-item [itemTitle]="item.title" [itemThumb]="getItemThumb(item)"
           [itemDescription]="item.opening_crawl || item.description"

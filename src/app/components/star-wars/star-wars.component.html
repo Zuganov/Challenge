@@ -1,20 +1,22 @@
-<main class="container pt-3">
+<main class="container pt-5">
 
   <article class="row">
-    <section class="pb-4 jumbotron w-100">
-      <h1>
-        Star Wars
-      </h1>
+    <div class="container">
+      <section class="col-12 pb-4 jumbotron w-100">
+        <h1>
+          Star Wars
+        </h1>
 
-      <h4>Escolha seus filmes favoritos!</h4>
-    </section>
+        <h4>Escolha seus filmes favoritos!</h4>
+      </section>
+    </div>
   </article>
 
 
 
   <article class="row">
 
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-3 pb-3">
 
       <h4>Filtros</h4>
 
@@ -28,6 +30,16 @@
     </div>
 
     <div class="col-12 col-md-9">
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" aria-current="page">
+            <a [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Star Wars</li>
+        </ol>
+      </nav>
+
       <div *ngIf="films && films.length > 0">
         <section *ngFor="let film of films">
           <app-list-item [itemTitle]="film.title" [selectedItems]="selectedFilms" [itemDescription]="film.opening_crawl" [itemId]="film.episode_id"
