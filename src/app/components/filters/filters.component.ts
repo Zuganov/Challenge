@@ -3,10 +3,9 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-filters',
-  templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss']
+  templateUrl: './filters.component.html'
 })
-export class FiltersComponent implements OnInit {
+export class FiltersComponent {
   @Input() parentForm: FormGroup;
   @Input() type: FormGroup;
 
@@ -25,7 +24,4 @@ export class FiltersComponent implements OnInit {
     { name: 'Data de venda descendente', value: '-onsaleDate' }
   ];
 
-  constructor() {}
-
-  ngOnInit() {}
 }

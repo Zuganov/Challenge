@@ -44,11 +44,13 @@ export class MarvelComponent implements OnInit, OnDestroy {
     this.getMarvelComics(0, this.filtersForm.value);
   }
 
+  // Destrói os observables ativos para prevenir memory leak
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
+  // cria form para filtros
   createForm(): FormGroup {
     return this.formBuilder.group({
       title: null,
@@ -58,6 +60,7 @@ export class MarvelComponent implements OnInit, OnDestroy {
     });
   }
 
+  // busca no servidor os dados dos quadrinhos
   getMarvelComics(offset, filters): void {
     this.blockUI.start();
 
@@ -87,6 +90,7 @@ export class MarvelComponent implements OnInit, OnDestroy {
       );
   }
 
+  // Trata as imagens
   getComicThumbImg(thumb): string {
     if (!thumb.path) {
       return 'imgNotFoundUrl';
@@ -95,6 +99,7 @@ export class MarvelComponent implements OnInit, OnDestroy {
     return `${thumb.path}/portrait_medium.${thumb.extension}`;
   }
 
+  // Trata o link de detalhes dos itens
   getComicDetailLink(urls: any[]): string {
     let url = 'http://marvel.com';
 
@@ -112,11 +117,13 @@ export class MarvelComponent implements OnInit, OnDestroy {
     return url;
   }
 
+  // Evento que realiza a paginação no servidor
   onPageChanged(event) {
     this.currentPage = event;
     this.getMarvelComics((event - 1) * 20, this.filtersForm.value);
   }
 
+  // função responsável pelo filtro
   filter(): void {
     this.getMarvelComics(0, this.filtersForm.value);
   }

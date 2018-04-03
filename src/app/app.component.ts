@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() { }
 
+  // Função responsável por mostrar menu de itens selecionados caso haja itens selecionados
   showMyItems() {
     this.selectedComics = JSON.parse(window.localStorage.getItem('marvelSelected')) || [];
     this.selectedFilms = JSON.parse(window.localStorage.getItem('starWarsSelected')) || [];

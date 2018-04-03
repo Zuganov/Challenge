@@ -42,6 +42,7 @@ export class SelectedItemsComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
+  // Realiza merge das listas e busca dados dos servidores
   getSelectedLists = (comicsList: any[], filmsList: any[]): any => {
     this.blockUI.start();
 

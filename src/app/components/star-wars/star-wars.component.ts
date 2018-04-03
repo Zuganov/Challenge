@@ -41,17 +41,20 @@ export class StarWarsComponent implements OnInit, OnDestroy {
     this.getStarWarsFilms(null);
   }
 
+  // Destrói os observables ativos para prevenir memory leak
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
 
+  // cria form para filtros
   createForm(): FormGroup {
     return this.formBuilder.group({
       title: null
     });
   }
 
+  // busca no servidor os dados dos filmes
   getStarWarsFilms(title: string): void {
     this.blockUI.start();
 
@@ -79,10 +82,12 @@ export class StarWarsComponent implements OnInit, OnDestroy {
       );
   }
 
+  // Trata o link de detalhes dos itens
   getStarWarsDetailLink(title: string) {
     return 'https://www.google.com/search?q=' + title;
   }
 
+  // função responsável pelo filtro
   filter(): void {
     this.getStarWarsFilms(this.filtersForm.controls.title.value);
   }
