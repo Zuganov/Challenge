@@ -27,16 +27,21 @@
 
     </div>
 
-    <div class="col-12 col-md-9" *ngIf="films && films.length > 0">
-      <section *ngFor="let film of films">
-        <app-list-item [itemTitle]="film.title" [selectedItems]="selectedFilms"
-          [itemDescription]="film.opening_crawl" [itemId]="film.episode_id"
-          [itemUrl]="getStarWarsDetailLink(film.title)" [checkSelected]="checkSelectedFilm" 
-          [toggleSelected]="toggleSelectedFilm" [type]="'starWars'"></app-list-item>
-      </section>
-    </div>
+    <div class="col-12 col-md-9">
+      <div *ngIf="films && films.length > 0">
+        <section *ngFor="let film of films">
+          <app-list-item [itemTitle]="film.title" [selectedItems]="selectedFilms" [itemDescription]="film.opening_crawl" [itemId]="film.episode_id"
+            [itemUrl]="getStarWarsDetailLink(film.title)" [checkSelected]="checkSelectedFilm" [toggleSelected]="toggleSelectedFilm"
+            [type]="'starWars'"></app-list-item>
+        </section>
+      </div>
 
-    
+      <div [hidden]="!noResultsMessage" class="pt-4">
+        <div class="alert alert-info">
+          Não há resultados! Tente novamente mais tarde ou altere seu filtro.
+        </div>
+      </div>
+    </div>
 
   </article>
 

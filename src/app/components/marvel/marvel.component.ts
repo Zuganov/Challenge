@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -15,13 +15,13 @@ import { SharedService } from '../../services/shared.service';
   styleUrls: ['./marvel.component.scss']
 })
 export class MarvelComponent implements OnInit, OnDestroy {
-
   @BlockUI() blockUI: NgBlockUI;
   private ngUnsubscribe: Subject<any> = new Subject();
 
   comics: any[];
   selectedComics: number[] = [];
   filtersForm: FormGroup;
+  noResultsMessage: boolean;
 
   toggleSelectedComic = this.sharedService.toggleSelected;
   checkSelectedComic = this.sharedService.checkSelected;
@@ -33,13 +33,14 @@ export class MarvelComponent implements OnInit, OnDestroy {
   constructor(
     private marvelService: MarvelService,
     private sharedService: SharedService,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
-    this.blockUI.start();
     this.filtersForm = this.createForm();
 
-    this.selectedComics = JSON.parse(window.localStorage.getItem('marvelSelected')) || [];
+    this.selectedComics =
+      JSON.parse(window.localStorage.getItem('marvelSelected')) || [];
     this.getMarvelComics(0, this.filtersForm.value);
   }
 
@@ -52,18 +53,38 @@ export class MarvelComponent implements OnInit, OnDestroy {
     return this.formBuilder.group({
       title: null,
       startYear: null,
-      formatType: null
+      formatType: null,
+      orderBy: 'title'
     });
   }
 
   getMarvelComics(offset, filters): void {
-    this.marvelService.getComics(offset, filters).pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe(response => {
-      this.comics = response.data.results;
-      this.total = response.data.total;
-      this.currentPage = (response.data.offset / 20) + 1;
-      this.blockUI.stop();
-    });
+    this.blockUI.start();
+
+    this.noResultsMessage = false;
+
+    this.marvelService
+      .getComics(offset, filters)
+      .pipe(
+        takeUntil(this.ngUnsubscribe),
+        finalize(() => {
+          this.blockUI.stop();
+        })
+      )
+      .subscribe(
+        response => {
+          this.comics = response.data.results;
+          this.total = response.data.total;
+          this.currentPage = response.data.offset / 20 + 1;
+
+          if (this.total === 0) {
+            this.noResultsMessage = true;
+          }
+        },
+        error => {
+          this.noResultsMessage = true;
+        }
+      );
   }
 
   getComicThumbImg(thumb): string {
@@ -93,13 +114,10 @@ export class MarvelComponent implements OnInit, OnDestroy {
 
   onPageChanged(event) {
     this.currentPage = event;
-    this.blockUI.start();
     this.getMarvelComics((event - 1) * 20, this.filtersForm.value);
   }
 
   filter(): void {
-    this.blockUI.start();
     this.getMarvelComics(0, this.filtersForm.value);
   }
-
 }

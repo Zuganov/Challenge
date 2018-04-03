@@ -16,26 +16,34 @@
 
       <h4>Filtros</h4>
 
-      <form [formGroup]="filtersForm" (submit)="filter()">
+      <form [formGroup]="filtersForm" (submit)="filter();">
 
         <app-filters [parentForm]="filtersForm" [type]="'marvel'"></app-filters>
 
-        <button class="btn btn-primary" type="button">Filtrar</button>
+        <button class="btn btn-primary" type="submit">Filtrar</button>
 
       </form>
     </div>
+    
+    <div class="col-12 col-md-9">
+      <div *ngIf="comics && comics.length > 0">
+          <pagination-controls maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
 
-    <div class="col-12 col-md-9" *ngIf="comics && comics.length > 0">
+          <section *ngFor="let comic of comics | paginate: { itemsPerPage: 20, currentPage: currentPage, totalItems: total }">
+            <app-list-item [itemThumb]="getComicThumbImg(comic.thumbnail)" [itemTitle]="comic.title" [selectedItems]="selectedComics"
+              [itemDescription]="comic.description" [itemId]="comic.id" [itemUrl]="getComicDetailLink(comic.urls)" [checkSelected]="checkSelectedComic"
+              [toggleSelected]="toggleSelectedComic" [type]="'marvel'"></app-list-item>
+          </section>
+    
+          <pagination-controls maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
+      </div>
 
-      <pagination-controls maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
+      <div [hidden]="!noResultsMessage" class="pt-4">
+        <div class="alert alert-info">
+          Não há resultados! Tente novamente mais tarde ou altere seu filtro.
+        </div>
+      </div>
 
-      <section *ngFor="let comic of comics | paginate: { itemsPerPage: 20, currentPage: currentPage, totalItems: total }">
-        <app-list-item [itemThumb]="getComicThumbImg(comic.thumbnail)" [itemTitle]="comic.title" [selectedItems]="selectedComics"
-          [itemDescription]="comic.description" [itemId]="comic.id" [itemUrl]="getComicDetailLink(comic.urls)" [checkSelected]="checkSelectedComic"
-          [toggleSelected]="toggleSelectedComic" [type]="'marvel'"></app-list-item>
-      </section>
-
-      <pagination-controls maxSize="9" (pageChange)="onPageChanged($event)"></pagination-controls>
     </div>
   
   </article>

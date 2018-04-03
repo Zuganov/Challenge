@@ -34,4 +34,10 @@ export class MarvelService {
     return this.httpClient.get(url, httpOptions);
   }
 
+  getComicById(comicId: number): Observable<any> {
+    const url = `${marvelApiBaseUrl}comics/${comicId}`;
+
+    return this.httpClient.get(url, httpOptions);
+  }
+
 }

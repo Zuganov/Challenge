@@ -23,4 +23,10 @@ export class StarWarsService {
     return this.httpClient.get(url, httpOptions);
   }
 
+  getFilmById(filmId: number): Observable<any> {
+    const url = `${starWarsApiBaseUrl}films/${filmId}`;
+
+    return this.httpClient.get(url, httpOptions);
+  }
+
 }

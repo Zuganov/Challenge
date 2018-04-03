@@ -4,16 +4,14 @@
       <span class="navbar-brand">
         <a [routerLink]="['/home']">Front End Challenge</a>
       </span>
+      <ul class="navbar-nav justify-content-end w-100" [hidden]="!showMyItems()">
+        <li class="nav-item">
+          <a [routerLink]="['/selected-items']">Meus itens</a>
+        </li>
+      </ul>
     </nav>
   </header>
 
   <router-outlet></router-outlet>
 
-  <footer>
-    <div class="container">
-      <span class="text-muted">
-        Made by: Zuganov
-      </span>
-    </div>
-  </footer>
 </block-ui>

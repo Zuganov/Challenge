@@ -7,13 +7,20 @@
   <div *ngIf="type === 'marvel'">
 
     <div class="form-group">
-      <input type="text" class="form-control" formControlName="startYear" placeholder="Ano de inicio">
+      <input type="text" class="form-control" formControlName="startYear" placeholder="Ano de inicio" mask='9999'>
     </div>
 
     <div class="form-group">
       <label for="select">Formato</label>
       <select class="form-control" formControlName="formatType" id="select">
         <option *ngFor="let formatType of formatTypes" [ngValue]="formatType.value">{{formatType.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="select">Ordenação</label>
+      <select class="form-control" formControlName="orderBy" id="select">
+        <option *ngFor="let orderBy of orderTypes" [ngValue]="orderBy.value">{{orderBy.name}}</option>
       </select>
     </div>
 

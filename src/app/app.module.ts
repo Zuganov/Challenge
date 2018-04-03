@@ -19,6 +19,7 @@ import { FiltersComponent } from './components/filters/filters.component';
 // Third party modules
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BlockUIModule } from 'ng-block-ui';
+import {NgxMaskModule} from 'ngx-mask';
 
 // Services
 import { MarvelService } from './services/marvel.service';
@@ -42,7 +43,8 @@ import { SharedService } from './services/shared.service';
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    BlockUIModule
+    BlockUIModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
     MarvelService,

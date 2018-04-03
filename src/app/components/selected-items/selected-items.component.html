@@ -1,3 +1,24 @@
-<p>
-  selected-items works!
-</p>
+<main class="container pt-3">
+
+  <article class="row">
+    <section class="pb-4 jumbotron w-100">
+      <h1>
+        Suas Escolhas
+      </h1>
+
+      <h4>A seguir estarão listadas as suas preferências!</h4>
+    </section>
+  </article>
+
+  <article class="row">
+    <div class="col-12 col-md-9" *ngIf="selectedItems && selectedItems.length > 0">
+      <section *ngFor="let item of selectedItems">
+        <app-list-item [itemTitle]="item.title" [itemThumb]="getItemThumb(item)"
+          [itemDescription]="item.opening_crawl || item.description"
+          [itemUrl]="getItemDetailLink(item)" [type]="'all'"></app-list-item>
+      </section>
+    </div>
+
+  </article>
+
+</main>

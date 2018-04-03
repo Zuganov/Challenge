@@ -7,15 +7,25 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit {
-
   @Input() parentForm: FormGroup;
   @Input() type: FormGroup;
 
-  formatTypes: any[] = [{name: 'Quadrinho', value: 'comic'}, {name: 'Coleção', value: 'collection'}, {name: 'Todos', value: null}];
+  formatTypes: any[] = [
+    { name: 'Quadrinho', value: 'comic' },
+    { name: 'Coleção', value: 'collection' },
+    { name: 'Todos', value: null }
+  ];
 
-  constructor() { }
+  orderTypes: any[] = [
+    { name: 'Titulo ascendente', value: 'title' },
+    { name: 'Titulo descendente', value: '-title' },
+    { name: 'Modificado ascendente', value: 'modified' },
+    { name: 'Modificado descendente', value: '-modified' },
+    { name: 'Data de venda ascendente', value: 'onsaleDate' },
+    { name: 'Data de venda descendente', value: '-onsaleDate' }
+  ];
 
-  ngOnInit() {
-  }
+  constructor() {}
 
+  ngOnInit() {}
 }
