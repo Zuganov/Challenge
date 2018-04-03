@@ -14,7 +14,7 @@ export class ListItemComponent {
   @Input() itemId: number;
   @Input() selectedItems: any[];
   @Input() type: string;
-  @Input() checkSelected: boolean;
+  @Input() checkSelected: Function;
   @Input() toggleSelected: Function;
 
   constructor() { }

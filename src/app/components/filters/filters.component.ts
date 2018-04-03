@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class FiltersComponent {
   @Input() parentForm: FormGroup;
-  @Input() type: FormGroup;
+  @Input() type: string;
 
   formatTypes: any[] = [
     { name: 'Quadrinho', value: 'comic' },
