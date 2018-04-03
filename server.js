@@ -1,13 +1,18 @@
-var express = require('express');
-var path = require('path');
-var router = express.Router();
- 
-// serve angular front end files from root path
-router.use('/', express.static('app', { redirect: false }));
- 
-// rewrite virtual urls to angular app to enable refreshing of internal pages
-router.get('*', function (req, res, next) {
-    res.sendFile(path.resolve('dist/index.html'));
+const express = require('express');
+const http = require('http')
+const path = require('path');
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
- 
-module.exports = router;
+
+const port = process.env.PORT || 3000;
+app.set('port', port);
+
+const server = http.createServer(app);
+// server.listen(port, () => console.log('running'));
+
